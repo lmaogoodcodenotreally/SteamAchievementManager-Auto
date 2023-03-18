@@ -12,4 +12,5 @@ Honestly, I'm not really sure. I doubt it's any worse than just using this progr
 
 ## Attribution
 
-Most (if not all) icons are from the [Fugue Icons](http://p.yusukekamiyamane.com/) set.
+- Most (if not all) icons are from the [Fugue Icons](http://p.yusukekamiyamane.com/) set.
+- Credits to [Gibbed](https://github.com/gibbed/) for [Steam Achievement Manager](https://github.com/gibbed/SteamAchievementManager) 
