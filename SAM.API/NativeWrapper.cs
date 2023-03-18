@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2019 Rick (rick 'at' gibbed 'dot' us)
+﻿/* Copyright (c) 2017 Rick (rick 'at' gibbed 'dot' us)
  * 
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -34,7 +34,6 @@ namespace SAM.API
         public override string ToString()
         {
             return string.Format(
-                System.Globalization.CultureInfo.CurrentCulture,
                 "Steam Interface<{0}> #{1:X8}",
                 typeof(TNativeFunctions),
                 this.ObjectAddress.ToInt32());

@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2019 Rick (rick 'at' gibbed 'dot' us)
+﻿/* Copyright (c) 2017 Rick (rick 'at' gibbed 'dot' us)
  * 
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -54,7 +54,7 @@ namespace SAM.Game
 
         //private API.Callback<APITypes.UserStatsStored> UserStatsStoredCallback;
 
-        public Manager(long gameId, API.Client client)
+        public Manager(long gameId, API.Client client, bool isAuto = false)
         {
             this.InitializeComponent();
 
@@ -105,7 +105,25 @@ namespace SAM.Game
 
             //this.UserStatsStoredCallback = new API.Callback(1102, new API.Callback.CallbackFunction(this.OnUserStatsStored));
             this.RefreshStats();
+
+            if(isAuto)
+            {
+                base.Text += " | Automatic Unlock";
+
+                // Disable input
+                _ResetButton.Enabled = false;
+                _ReloadButton.Enabled = false;
+                _StoreButton.Enabled = false;
+                _LockAllButton.Enabled = false;
+                _InvertAllButton.Enabled = false;
+                _UnlockAllButton.Enabled = false;
+                _MainTabControl.Enabled = false;
+
+                isAutomatic = isAuto;
+            }
         }
+
+        public bool isAutomatic { get; private set; }
 
         private void AddAchievementIcon(Stats.AchievementInfo info, Image icon)
         {
@@ -156,15 +174,12 @@ namespace SAM.Game
                 return;
             }
 
-            if (this._IconDownloader.IsBusy == true)
+            if (this._IconDownloader.IsBusy)
             {
                 return;
             }
 
-            this._DownloadStatusLabel.Text = string.Format(
-                CultureInfo.CurrentCulture,
-                "Downloading {0} icons...",
-                this._IconQueue.Count);
+            this._DownloadStatusLabel.Text = string.Format("Downloading {0} icons...", this._IconQueue.Count);
             this._DownloadStatusLabel.Visible = true;
 
             var info = this._IconQueue[0];
@@ -172,15 +187,13 @@ namespace SAM.Game
 
 
             this._IconDownloader.DownloadDataAsync(
-                new Uri(string.Format(
-                    CultureInfo.InvariantCulture,
-                    "http://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/{0}/{1}",
-                    this._GameId,
-                    info.IsAchieved == true ? info.IconNormal : info.IconLocked)),
+                new Uri(string.Format("http://media.steamcommunity.com/steamcommunity/public/images/apps/{0}/{1}",
+                                      this._GameId,
+                                      info.IsAchieved == true ? info.IconNormal : info.IconLocked)),
                 info);
         }
 
-        private static string TranslateError(int id)
+        private string TranslateError(int id)
         {
             switch (id)
             {
@@ -193,7 +206,7 @@ namespace SAM.Game
             return id.ToString(CultureInfo.InvariantCulture);
         }
 
-        private static string GetLocalizedString(KeyValue kv, string language, string defaultValue)
+        private string GetLocalizedString(KeyValue kv, string language, string defaultValue)
         {
             var name = kv[language].AsString("");
             if (string.IsNullOrEmpty(name) == false)
@@ -228,10 +241,7 @@ namespace SAM.Game
                 path = API.Steam.GetInstallPath();
                 path = Path.Combine(path, "appcache");
                 path = Path.Combine(path, "stats");
-                path = Path.Combine(path, string.Format(
-                    CultureInfo.InvariantCulture,
-                    "UserGameStatsSchema_{0}.bin",
-                    this._GameId));
+                path = Path.Combine(path, string.Format("UserGameStatsSchema_{0}.bin", this._GameId));
 
                 if (File.Exists(path) == false)
                 {
@@ -250,7 +260,7 @@ namespace SAM.Game
                 return false;
             }
 
-            var currentLanguage = this._SteamClient.SteamApps008.GetCurrentGameLanguage();
+            var currentLanguage = this._SteamClient.SteamApps003.GetCurrentGameLanguage();
             //var currentLanguage = "german";
 
             this._AchievementDefinitions.Clear();
@@ -276,7 +286,7 @@ namespace SAM.Game
                 var type = (APITypes.UserStatType)rawType;
                 switch (type)
                 {
-                    case APITypes.UserStatType.Invalid:
+                    case API.Types.UserStatType.Invalid:
                     {
                         break;
                     }
@@ -326,7 +336,7 @@ namespace SAM.Game
                         if (stat.Children != null)
                         {
                             foreach (var bits in stat.Children.Where(
-                                b => string.Compare(b.Name, "bits", StringComparison.InvariantCultureIgnoreCase) == 0))
+                                b => b.Name.ToLowerInvariant() == "bits"))
                             {
                                 if (bits.Valid == false ||
                                     bits.Children == null)
@@ -369,10 +379,10 @@ namespace SAM.Game
 
         private void OnUserStatsReceived(APITypes.UserStatsReceived param)
         {
+
             if (param.Result != 1)
             {
                 this._GameStatusLabel.Text = string.Format(
-                    CultureInfo.CurrentCulture,
                     "Error while retrieving stats: {0}",
                     TranslateError(param.Result));
                 this.EnableInput();
@@ -404,11 +414,55 @@ namespace SAM.Game
             }
 
             this._GameStatusLabel.Text = string.Format(
-                CultureInfo.CurrentCulture,
                 "Retrieved {0} achievements and {1} statistics.",
                 this._AchievementListView.Items.Count,
                 this._StatisticsDataGridView.Rows.Count);
             this.EnableInput();
+
+
+            if(isAutomatic)
+            {
+
+                // Check all.
+                foreach (ListViewItem item in this._AchievementListView.Items)
+                {
+                    item.Checked = true;
+                }
+
+                if (this._AchievementListView.Items.Count == 0)
+                {
+                    Application.Exit();
+                }
+
+                // Store
+                var achievements = new List<Stats.AchievementInfo>();
+                foreach (ListViewItem item in this._AchievementListView.Items)
+                {
+                    var achievementInfo = item.Tag as Stats.AchievementInfo;
+                    if (achievementInfo != null &&
+                        achievementInfo.IsAchieved != item.Checked)
+                    {
+                        achievementInfo.IsAchieved = item.Checked;
+                        achievements.Add(item.Tag as Stats.AchievementInfo);
+                    }
+                }
+
+                if (achievements.Count == 0)
+                {
+                    Application.Exit();
+                }
+
+                foreach (Stats.AchievementInfo info in achievements)
+                {
+                    if (this._SteamClient.SteamUserStats.SetAchievement(info.Id, info.IsAchieved) == false)
+                    {
+                        Application.Exit();
+                    }
+                }
+
+                // Done
+                Application.Exit();
+            }
         }
 
         private void RefreshStats()
@@ -438,7 +492,7 @@ namespace SAM.Game
 
             foreach (var def in this._AchievementDefinitions)
             {
-                if (string.IsNullOrEmpty(def.Id) == true)
+                if (def.Id == string.Empty)
                 {
                     continue;
                 }
@@ -470,7 +524,7 @@ namespace SAM.Game
 
                 info.Item = item;
 
-                if (item.Text.StartsWith("#", StringComparison.InvariantCulture) == true)
+                if (item.Text.StartsWith("#") == true)
                 {
                     item.Text = info.Id;
                 }
@@ -590,10 +644,7 @@ namespace SAM.Game
                 {
                     MessageBox.Show(
                         this,
-                        string.Format(
-                            CultureInfo.CurrentCulture,
-                            "An error occurred while setting the state for {0}, aborting store.",
-                            info.Id),
+                        string.Format("An error occured while setting the state for {0}, aborting store.", info.Id),
                         "Error",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
@@ -628,10 +679,7 @@ namespace SAM.Game
                     {
                         MessageBox.Show(
                             this,
-                            string.Format(
-                                CultureInfo.CurrentCulture,
-                                "An error occurred while setting the value for {0}, aborting store.",
-                                stat.Id),
+                            string.Format("An error occured while setting the value for {0}, aborting store.", stat.Id),
                             "Error",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
@@ -647,10 +695,7 @@ namespace SAM.Game
                     {
                         MessageBox.Show(
                             this,
-                            string.Format(
-                                CultureInfo.CurrentCulture,
-                                "An error occurred while setting the value for {0}, aborting store.",
-                                stat.Id),
+                            string.Format("An error occured while setting the value for {0}, aborting store.", stat.Id),
                             "Error",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
@@ -659,7 +704,7 @@ namespace SAM.Game
                 }
                 else
                 {
-                    throw new InvalidOperationException("unsupported stat type");
+                    throw new Exception();
                 }
             }
 
@@ -720,7 +765,7 @@ namespace SAM.Game
             {
                 MessageBox.Show(
                     this,
-                    "An error occurred while storing, aborting.",
+                    "An error occured while storing, aborting.",
                     "Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
@@ -754,11 +799,7 @@ namespace SAM.Game
 
             MessageBox.Show(
                 this,
-                string.Format(
-                    CultureInfo.CurrentCulture,
-                    "Stored {0} achievements and {1} statistics.",
-                    achievements,
-                    stats),
+                string.Format("Stored {0} achievements and {1} statistics.", achievements, stats),
                 "Information",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
@@ -769,18 +810,33 @@ namespace SAM.Game
         {
             if (e.Context == DataGridViewDataErrorContexts.Commit)
             {
-                var view = (DataGridView)sender;
                 if (e.Exception is Stats.StatIsProtectedException)
                 {
-                    e.ThrowException = false;
-                    e.Cancel = true;
-                    view.Rows[e.RowIndex].ErrorText = "Stat is protected! -- you can't modify it";
+                    if (isAutomatic)
+                    {
+                        Application.Exit();
+                    }
+                    else
+                    {
+                        e.ThrowException = false;
+                        e.Cancel = true;
+                        var view = (DataGridView)sender;
+                        view.Rows[e.RowIndex].ErrorText = "Stat is protected! -- you can't modify it";
+                    }
                 }
                 else
                 {
-                    e.ThrowException = false;
-                    e.Cancel = true;
-                    view.Rows[e.RowIndex].ErrorText = "Invalid value";
+                    if (isAutomatic)
+                    {
+                        Application.Exit();
+                    }
+                    else
+                    {
+                        e.ThrowException = false;
+                        e.Cancel = true;
+                        var view = (DataGridView)sender;
+                        view.Rows[e.RowIndex].ErrorText = "Invalid value";
+                    }
                 }
             }
         }
@@ -852,13 +908,20 @@ namespace SAM.Game
 
             if ((info.Permission & 3) != 0)
             {
-                MessageBox.Show(
-                    this,
-                    "Sorry, but this is a protected achievement and cannot be managed with Steam Achievement Manager.",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-                e.NewValue = e.CurrentValue;
+                if (isAutomatic)
+                {
+                    Application.Exit();
+                }
+                else
+                {
+                    MessageBox.Show(
+                        this,
+                        "Sorry, but this is a protected achievement and cannot be managed with Steam Achievement Manager.",
+                        "Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    e.NewValue = e.CurrentValue;
+                }
             }
         }
     }

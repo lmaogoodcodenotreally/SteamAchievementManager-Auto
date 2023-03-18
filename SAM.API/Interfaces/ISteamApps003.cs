@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2019 Rick (rick 'at' gibbed 'dot' us)
+﻿/* Copyright (c) 2017 Rick (rick 'at' gibbed 'dot' us)
  * 
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -19,16 +19,22 @@
  * 3. This notice may not be removed or altered from any source
  *    distribution.
  */
-namespace SAM.API
+
+using System;
+using System.Runtime.InteropServices;
+
+namespace SAM.API.Interfaces
 {
-    public enum ClientInitializeFailure : byte
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
+    public struct ISteamApps003
     {
-        Unknown = 0,
-        GetInstallPath,
-        Load,
-        CreateSteamClient,
-        CreateSteamPipe,
-        ConnectToGlobalUser,
-        AppIdMismatch,
+        public IntPtr IsSubscribed;
+        public IntPtr IsLowViolence;
+        public IntPtr IsCybercafe;
+        public IntPtr IsVACBanned;
+        public IntPtr GetCurrentGameLanguage;
+        public IntPtr GetAvailableGameLanguages;
+        public IntPtr IsSubscribedApp;
+        public IntPtr IsDlcInstalled;
     }
 }

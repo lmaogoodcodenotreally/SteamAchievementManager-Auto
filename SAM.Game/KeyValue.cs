@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2019 Rick (rick 'at' gibbed 'dot' us)
+﻿/* Copyright (c) 2017 Rick (rick 'at' gibbed 'dot' us)
  * 
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -47,7 +47,7 @@ namespace SAM.Game
                 }
 
                 var child = this.Children.SingleOrDefault(
-                    c => string.Compare(c.Name, key, StringComparison.InvariantCultureIgnoreCase) == 0);
+                    c => c.Name.ToLowerInvariant() == key.ToLowerInvariant());
                 
                 if (child == null)
                 {
@@ -202,11 +202,7 @@ namespace SAM.Game
                 return this.Name;
             }
 
-            return string.Format(
-                System.Globalization.CultureInfo.CurrentCulture,
-                "{0} = {1}",
-                this.Name,
-                this.Value);
+            return string.Format("{0} = {1}", this.Name, this.Value);
         }
 
         public static KeyValue LoadAsBinary(string path)
@@ -218,15 +214,16 @@ namespace SAM.Game
 
             try
             {
-                using (var input = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                var input = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                var kv = new KeyValue();
+
+                if (kv.ReadAsBinary(input) == false)
                 {
-                    var kv = new KeyValue();
-                    if (kv.ReadAsBinary(input) == false)
-                    {
-                        return null;
-                    }
-                    return kv;
+                    return null;
                 }
+
+                input.Close();
+                return kv;
             }
             catch (Exception)
             {

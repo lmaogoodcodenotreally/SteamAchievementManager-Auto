@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2019 Rick (rick 'at' gibbed 'dot' us)
+﻿/* Copyright (c) 2017 Rick (rick 'at' gibbed 'dot' us)
  * 
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -68,10 +68,6 @@ namespace SAM.API.Wrappers
 
         public bool GetImageRGBA(int index, byte[] data)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException("data");
-            }
             var call = this.GetFunction<NativeGetImageRGBA>(this.Functions.GetImageRGBA);
             return call(this.ObjectAddress, index, data, data.Length);
         }

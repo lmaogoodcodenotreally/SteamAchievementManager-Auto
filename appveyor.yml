@@ -7,12 +7,11 @@ branches:
 skip_tags: true
 skip_commits:
   files:
-    - .github/*
     - README.md
 
 max_jobs: 1
 
-image: Visual Studio 2019
+image: Visual Studio 2015
 
 clone_folder: c:\projects\SAM
 
@@ -27,13 +26,12 @@ install:
 configuration:
   - Release
 
-dotnet_csproj:
+assembly_info:
   patch: true
-  file: '**\*.csproj'
-  version: '{version}'
+  file: '**\AssemblyInfo.*'
   assembly_version: '{version}'
-  file_version: '{version}'
-  informational_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
 
 build:
   project: SAM.sln

@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2019 Rick (rick 'at' gibbed 'dot' us)
+﻿/* Copyright (c) 2017 Rick (rick 'at' gibbed 'dot' us)
  * 
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -32,7 +32,7 @@ namespace SAM.Game.Stats
             get { return this.IntValue; }
             set
             {
-                var i = int.Parse((string)value, System.Globalization.CultureInfo.CurrentCulture);
+                var i = int.Parse((string)value);
 
                 if ((this.Permission & 2) != 0 &&
                     this.IntValue != i)

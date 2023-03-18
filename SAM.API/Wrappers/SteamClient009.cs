@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2019 Rick (rick 'at' gibbed 'dot' us)
+﻿/* Copyright (c) 2017 Rick (rick 'at' gibbed 'dot' us)
  * 
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -26,7 +26,7 @@ using SAM.API.Interfaces;
 
 namespace SAM.API.Wrappers
 {
-    public class SteamClient018 : NativeWrapper<ISteamClient018>
+    public class SteamClient009 : NativeWrapper<ISteamClient009>
     {
         #region CreateSteamPipe
         [UnmanagedFunctionPointer(CallingConvention.ThisCall)]
@@ -206,10 +206,10 @@ namespace SAM.API.Wrappers
         }
         #endregion
 
-        #region GetSteamApps008
-        public SteamApps008 GetSteamApps008(int user, int pipe)
+        #region GetSteamApps003
+        public SteamApps003 GetSteamApps003(int user, int pipe)
         {
-            return this.GetISteamApps<SteamApps008>(user, pipe, "STEAMAPPS_INTERFACE_VERSION008");
+            return this.GetISteamApps<SteamApps003>(user, pipe, "STEAMAPPS_INTERFACE_VERSION003");
         }
         #endregion
     }

@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2019 Rick (rick 'at' gibbed 'dot' us)
+﻿/* Copyright (c) 2017 Rick (rick 'at' gibbed 'dot' us)
  * 
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -40,47 +40,33 @@ namespace SAM.Picker
                 return;
             }
 
-            using (var client = new API.Client())
+            API.Client client;
+            try
             {
-                try
-                {
-                    client.Initialize(0);
-                }
-                catch (API.ClientInitializeException e)
-                {
-                    if (string.IsNullOrEmpty(e.Message) == false)
-                    {
-                        MessageBox.Show(
-                            "Steam is not running. Please start Steam then run this tool again.\n\n" +
-                            "(" + e.Message + ")",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
-                    }
-                    else
-                    {
-                        MessageBox.Show(
-                            "Steam is not running. Please start Steam then run this tool again.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
-                    }
-                    return;
-                }
-                catch (DllNotFoundException)
+                client = new API.Client();
+                if (client.Initialize(0) == false)
                 {
                     MessageBox.Show(
-                        "You've caused an exceptional error!",
+                        "Steam is not running. Please start Steam then run this tool again.",
                         "Error",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
                     return;
                 }
-
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new GamePicker(client));
             }
+            catch (DllNotFoundException)
+            {
+                MessageBox.Show(
+                    "You've caused an exceptional error!",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
+
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new GamePicker(client));
         }
     }
 }
