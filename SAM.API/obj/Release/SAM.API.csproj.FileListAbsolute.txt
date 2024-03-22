@@ -1,0 +1,4 @@
+C:\Users\User\source\repos\SteamAchievementManager-Auto\upload\SAM.API.dll
+C:\Users\User\source\repos\SteamAchievementManager-Auto\SAM.API\obj\Release\SAM.API.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\SteamAchievementManager-Auto\SAM.API\obj\Release\SAM.API.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\SteamAchievementManager-Auto\SAM.API\obj\Release\SAM.API.dll
