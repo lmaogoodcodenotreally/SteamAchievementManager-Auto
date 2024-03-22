@@ -1,8 +1,14 @@
-# Steam Achievement Manager Auto
+# Steam Achievement Manager Auto but with minor improvements
+
+- Unlock All no ALT TAB you to your desktop while playing a full screen game
+- Game Window is not shown in taskbar
+- Game window will start minimized while picker window stay unchanged
+- Less goofy default size for picker
+
+
 
 This code is based on the Upstream PR in https://github.com/gibbed/SteamAchievementManager/pull/62
-
-[Download latest SAM Auto release](https://github.com/FarukGamer/SteamAchievementManager-Auto/releases/latest).
+And also based on [SAM Auto release](https://github.com/FarukGamer/SteamAchievementManager-Auto/releases/latest).
 
 ## What's new
 - A new "Unlock All" feature has been added that loops through all of the displayed games and unlocks everything automatically.
