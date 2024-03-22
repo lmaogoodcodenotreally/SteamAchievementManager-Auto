@@ -9,10 +9,11 @@
 - Game Window is not shown in taskbar
 - Game window will start minimized while picker window stay unchanged
 - Less goofy default size for picker
+
 ## Will I get banned for using the "Unlock All" feature?
 
-"I ran it on over 3600 games with achievements, yet no community ban or sanction toward the account.", 6_6_7
-"Honestly, I'm not really sure. I doubt it's any worse than just using this program normally. I let it run through 460+ games and I'm doing fine. Please don't hold me or the original author responsible for any damages this could cause.", FarukGamer
+- "I ran it on over 3600 games with achievements, yet no community ban or sanction toward the account.", 6_6_7
+- "Honestly, I'm not really sure. I doubt it's any worse than just using this program normally. I let it run through 460+ games and I'm doing fine. Please don't hold me or the original author responsible for any damages this could cause.", FarukGamer
 
 ## Attribution
 
