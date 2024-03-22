@@ -13,7 +13,6 @@ And also based on [SAM Auto release](https://github.com/FarukGamer/SteamAchievem
 - Game Window is not shown in taskbar
 - Game window will start minimized while picker window stay unchanged
 - Less goofy default size for picker
-- 
 ## Will I get banned for using the "Unlock All" feature?
 
 "I ran it on over 3600 games with achievements, yet no community ban or sanction toward the account.", 6_6_7
