@@ -1,3 +1,9 @@
+# Wiki
+
+- [Download](https://github.com/lmaogoodcodenotreally/SteamAchievementManager-Auto/releases/)
+- Extact all in same folder, then run `SAM.Picker.exe`
+
+
 # Steam Achievement Manager Auto but with minor improvements
 - Forked from [SAM Auto release](https://github.com/FarukGamer/SteamAchievementManager-Auto/releases/latest).
 - This code is based on the Upstream PR in https://github.com/gibbed/SteamAchievementManager/pull/62
