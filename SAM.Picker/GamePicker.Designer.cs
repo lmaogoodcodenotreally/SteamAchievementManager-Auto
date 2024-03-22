@@ -90,7 +90,7 @@
             this._FilterDropDownButton});
             this._PickerToolStrip.Location = new System.Drawing.Point(0, 0);
             this._PickerToolStrip.Name = "_PickerToolStrip";
-            this._PickerToolStrip.Size = new System.Drawing.Size(742, 25);
+            this._PickerToolStrip.Size = new System.Drawing.Size(773, 25);
             this._PickerToolStrip.TabIndex = 1;
             this._PickerToolStrip.Text = "toolStrip1";
             // 
@@ -115,8 +115,9 @@
             // 
             // _AddGameTextBox
             // 
+            this._AddGameTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this._AddGameTextBox.Name = "_AddGameTextBox";
-            this._AddGameTextBox.Size = new System.Drawing.Size(100, 25);
+            this._AddGameTextBox.Size = new System.Drawing.Size(116, 25);
             // 
             // toolStripButton1
             // 
@@ -180,21 +181,24 @@
             this._PickerStatusLabel,
             this._DownloadStatusLabel,
             this.unlockAllProgress});
-            this._PickerStatusStrip.Location = new System.Drawing.Point(0, 270);
+            this._PickerStatusStrip.Location = new System.Drawing.Point(0, 647);
             this._PickerStatusStrip.Name = "_PickerStatusStrip";
-            this._PickerStatusStrip.Size = new System.Drawing.Size(742, 22);
+            this._PickerStatusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
+            this._PickerStatusStrip.Size = new System.Drawing.Size(773, 22);
             this._PickerStatusStrip.TabIndex = 2;
             this._PickerStatusStrip.Text = "statusStrip";
             // 
             // _PickerStatusLabel
             // 
+            this._PickerStatusLabel.BackColor = System.Drawing.Color.GhostWhite;
             this._PickerStatusLabel.Name = "_PickerStatusLabel";
-            this._PickerStatusLabel.Size = new System.Drawing.Size(727, 17);
+            this._PickerStatusLabel.Size = new System.Drawing.Size(495, 17);
             this._PickerStatusLabel.Spring = true;
             this._PickerStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // _DownloadStatusLabel
             // 
+            this._DownloadStatusLabel.BackColor = System.Drawing.Color.GhostWhite;
             this._DownloadStatusLabel.Image = global::SAM.Picker.Properties.Resources.Download;
             this._DownloadStatusLabel.Name = "_DownloadStatusLabel";
             this._DownloadStatusLabel.Size = new System.Drawing.Size(111, 17);
@@ -204,7 +208,7 @@
             // unlockAllProgress
             // 
             this.unlockAllProgress.Name = "unlockAllProgress";
-            this.unlockAllProgress.Size = new System.Drawing.Size(100, 16);
+            this.unlockAllProgress.Size = new System.Drawing.Size(117, 16);
             this.unlockAllProgress.ToolTipText = "Unlock All Progress";
             this.unlockAllProgress.Visible = false;
             // 
@@ -225,11 +229,13 @@
             this._GameListView.BackColor = System.Drawing.Color.Black;
             this._GameListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this._GameListView.ForeColor = System.Drawing.Color.White;
+            this._GameListView.HideSelection = false;
             this._GameListView.LargeImageList = this._LogoImageList;
             this._GameListView.Location = new System.Drawing.Point(0, 25);
+            this._GameListView.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this._GameListView.MultiSelect = false;
             this._GameListView.Name = "_GameListView";
-            this._GameListView.Size = new System.Drawing.Size(742, 245);
+            this._GameListView.Size = new System.Drawing.Size(773, 622);
             this._GameListView.SmallImageList = this._LogoImageList;
             this._GameListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this._GameListView.TabIndex = 0;
@@ -242,15 +248,19 @@
             // 
             // GamePicker
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(742, 292);
+            this.BackColor = System.Drawing.SystemColors.Desktop;
+            this.ClientSize = new System.Drawing.Size(773, 669);
             this.Controls.Add(this._GameListView);
             this.Controls.Add(this._PickerStatusStrip);
             this.Controls.Add(this._PickerToolStrip);
+            this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "GamePicker";
-            this.Text = "Steam Achievement Manager Auto 7.0 | Pick a game... Any game...";
+            this.ShowIcon = false;
+            this.Text = "SAM   -   Custom-8.0   -   UNLOCK ALL IMPROVED     -   6_6_7";
             this._PickerToolStrip.ResumeLayout(false);
             this._PickerToolStrip.PerformLayout();
             this._PickerStatusStrip.ResumeLayout(false);
