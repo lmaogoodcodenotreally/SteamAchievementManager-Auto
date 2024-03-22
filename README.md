@@ -1,11 +1,7 @@
 # Steam Achievement Manager Auto but with minor improvements
+- Forked from [SAM Auto release](https://github.com/FarukGamer/SteamAchievementManager-Auto/releases/latest).
+- This code is based on the Upstream PR in https://github.com/gibbed/SteamAchievementManager/pull/62
 
-
-
-
-
-This code is based on the Upstream PR in https://github.com/gibbed/SteamAchievementManager/pull/62
-And also based on [SAM Auto release](https://github.com/FarukGamer/SteamAchievementManager-Auto/releases/latest).
 
 ## What's new
 - A new "Unlock All" feature has been added that loops through all of the displayed games and unlocks everything automatically.
