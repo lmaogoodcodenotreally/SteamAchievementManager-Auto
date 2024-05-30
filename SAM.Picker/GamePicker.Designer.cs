@@ -48,7 +48,6 @@
             this._PickerStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this._DownloadStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.unlockAllProgress = new System.Windows.Forms.ToolStripProgressBar();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this._LogoWorker = new System.ComponentModel.BackgroundWorker();
             this._ListWorker = new System.ComponentModel.BackgroundWorker();
             this._GameListView = new SAM.Picker.DoubleBufferedListView();
@@ -157,7 +156,7 @@
             this._FilterGamesMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this._FilterGamesMenuItem.ForeColor = System.Drawing.Color.White;
             this._FilterGamesMenuItem.Name = "_FilterGamesMenuItem";
-            this._FilterGamesMenuItem.Size = new System.Drawing.Size(180, 22);
+            this._FilterGamesMenuItem.Size = new System.Drawing.Size(142, 22);
             this._FilterGamesMenuItem.Text = "Show &games";
             this._FilterGamesMenuItem.CheckedChanged += new System.EventHandler(this.OnFilterUpdate);
             // 
@@ -167,7 +166,7 @@
             this._FilterDemosMenuItem.CheckOnClick = true;
             this._FilterDemosMenuItem.ForeColor = System.Drawing.Color.White;
             this._FilterDemosMenuItem.Name = "_FilterDemosMenuItem";
-            this._FilterDemosMenuItem.Size = new System.Drawing.Size(180, 22);
+            this._FilterDemosMenuItem.Size = new System.Drawing.Size(142, 22);
             this._FilterDemosMenuItem.Text = "Show &demos";
             this._FilterDemosMenuItem.CheckedChanged += new System.EventHandler(this.OnFilterUpdate);
             // 
@@ -177,7 +176,7 @@
             this._FilterModsMenuItem.CheckOnClick = true;
             this._FilterModsMenuItem.ForeColor = System.Drawing.Color.White;
             this._FilterModsMenuItem.Name = "_FilterModsMenuItem";
-            this._FilterModsMenuItem.Size = new System.Drawing.Size(180, 22);
+            this._FilterModsMenuItem.Size = new System.Drawing.Size(142, 22);
             this._FilterModsMenuItem.Text = "Show &mods";
             this._FilterModsMenuItem.CheckedChanged += new System.EventHandler(this.OnFilterUpdate);
             // 
@@ -187,7 +186,7 @@
             this._FilterJunkMenuItem.CheckOnClick = true;
             this._FilterJunkMenuItem.ForeColor = System.Drawing.Color.White;
             this._FilterJunkMenuItem.Name = "_FilterJunkMenuItem";
-            this._FilterJunkMenuItem.Size = new System.Drawing.Size(180, 22);
+            this._FilterJunkMenuItem.Size = new System.Drawing.Size(142, 22);
             this._FilterJunkMenuItem.Text = "Show &junk";
             this._FilterJunkMenuItem.CheckedChanged += new System.EventHandler(this.OnFilterUpdate);
             // 
@@ -197,8 +196,7 @@
             this._PickerStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._PickerStatusLabel,
             this._DownloadStatusLabel,
-            this.unlockAllProgress,
-            this.toolStripStatusLabel1});
+            this.unlockAllProgress});
             this._PickerStatusStrip.Location = new System.Drawing.Point(0, 569);
             this._PickerStatusStrip.Name = "_PickerStatusStrip";
             this._PickerStatusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
@@ -211,7 +209,7 @@
             this._PickerStatusLabel.BackColor = System.Drawing.Color.Black;
             this._PickerStatusLabel.ForeColor = System.Drawing.Color.White;
             this._PickerStatusLabel.Name = "_PickerStatusLabel";
-            this._PickerStatusLabel.Size = new System.Drawing.Size(632, 17);
+            this._PickerStatusLabel.Size = new System.Drawing.Size(481, 17);
             this._PickerStatusLabel.Spring = true;
             this._PickerStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -232,14 +230,6 @@
             this.unlockAllProgress.Size = new System.Drawing.Size(117, 16);
             this.unlockAllProgress.ToolTipText = "Unlock All Progress";
             this.unlockAllProgress.Visible = false;
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.BackColor = System.Drawing.Color.Black;
-            this.toolStripStatusLabel1.ForeColor = System.Drawing.Color.White;
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
             // _LogoWorker
             // 
@@ -321,7 +311,6 @@
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton unlockAllGames;
         private System.Windows.Forms.ToolStripProgressBar unlockAllProgress;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
     }
 }
 
