@@ -16,6 +16,9 @@
 - Game window will start minimized while picker window stay unchanged
 - Less goofy default size for picker
 
+## Known issues
+- I added a placeholder text and forgot to hide it.
+- Sometimes some game windows can stay opened, so we made killall.bat, make sure to use it !
 ## Will I get banned for using the "Unlock All" feature?
 
 - "I ran it on over 3600 games with achievements, yet no community ban or sanction toward the account as of 03/22/2024", 6_6_7
